@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.wgq.android.personmanager.MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tip your message:"
+        android:textSize="16dp" />
+
+    <EditText
+        android:id="@+id/msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.kongzue.stacklabelview.StackLabel xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/stackLabelView"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        app:textColor="#e6000000"
+        app:itemMargin="4dp"
+        app:paddingHorizontal="12dp"
+        app:paddingVertical="8dp"
+        app:deleteButton="false"
+        app:textSize="12dp"
+        app:labels="标签1,标签2,标签3,标签4"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btAdd"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add" />
+
+        <Button
+            android:id="@+id/btDelete"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete" />
+        <CheckBox
+            android:id="@+id/cbEditLable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Lable"/>
+        <CheckBox
+            android:id="@+id/cbEditTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Task"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Daily Task:"
+        android:textSize="16dp" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+</LinearLayout>
