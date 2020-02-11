@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox cbEditLable;
     private CheckBox cbEditTask;
     private EditText msg;
+    private String selectLable = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +39,13 @@ public class MainActivity extends AppCompatActivity {
         msg = (EditText) findViewById(R.id.msg);
 
         stackLabelView = (StackLabel) findViewById(R.id.stackLabelView);
-        labels.add("花哪儿记账");
-        labels.add("给未来写封信");
-        labels.add("密码键盘");
-        labels.add("抬手唤醒");
+        labels.add("技术");
+        labels.add("生活");
+        labels.add("健康");
+        labels.add("励志");
         stackLabelView.setLabels(labels);
         stackLabelView.setSelectMode(true);
         stackLabelView.setMaxSelectNum(1);
-
 
         stackLabelView.setOnLabelClickListener(new OnLabelClickListener() {
             @Override
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                     if (stackLabelView.isSelectMode()) {
                         for (int i : stackLabelView.getSelectIndexList()) {
                             Log.i(TAG, "select: " + i);
+                            selectLable = s;
                         }
                     }
                 }
@@ -74,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "haha", Toast.LENGTH_SHORT).show();
                 if (cbEditLable.isChecked()) {
                     String s = msg.getText().toString().trim();
                     if (s != null && !s.isEmpty()) {
@@ -82,6 +82,29 @@ public class MainActivity extends AppCompatActivity {
                         stackLabelView.setLabels(labels);
                         msg.setText("");
                     }
+                } else {
+                    Toast.makeText(MainActivity.this, "开始上传信息", Toast.LENGTH_SHORT).show();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String msgStr = msg.getText().toString();
+                            String msgLabel = selectLable;
+                            String msgUrl = msgStr.substring(msgStr.indexOf("\n") + 1).trim();
+                            String msgTitle = msgStr.substring(0, msgStr.indexOf("\n")).trim();
+                            Log.i(TAG, "msgLabel: " + msgLabel);
+                            Log.i(TAG, "msgTitle: " + msgTitle);
+                            Log.i(TAG, "msgUrl: " + msgUrl);
+
+                            OkHttpUtil.postJsonParams("http://122.51.2.33:8081/personurls",
+                                    "{\"url\":\""
+                                            + msgUrl +
+                                            "\",\"title\":\""
+                                            + msgTitle +
+                                            "\",\"label\":\""
+                                            + msgLabel +
+                                            "\"}");
+                        }
+                    }).start();
                 }
             }
         });
@@ -89,11 +112,11 @@ public class MainActivity extends AppCompatActivity {
         btDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "world", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "开始测试上传", Toast.LENGTH_SHORT).show();
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        OkHttpUtil.postJsonParams("http://192.168.137.1:8081/books",
+                        OkHttpUtil.postJsonParams("http://122.51.2.33:8081/books",
                                 "{\"name\":\"wgq4\",\"author\":\"wgq4\"}");
                     }
                 }).start();
