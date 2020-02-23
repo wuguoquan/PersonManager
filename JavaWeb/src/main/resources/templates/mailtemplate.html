@@ -2,24 +2,34 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>邮件</title>
+    <title>每日汇报</title>
 </head>
 <body>
-<div>邮箱激活</div>
-<div>您的注册信息是：
+<div>访问网站</div>
+<div>您的访问记录是：
     <table border="1">
+        <thead>
         <tr>
-            <td>用户名</td>
-            <td th:text="${username}"></td>
+            <th>编号</th>
+            <th>网址</th>
+            <th>标题</th>
+            <th>标签</th>
+            <th>创建时间</th>
         </tr>
-        <tr>
-            <td>用户性别</td>
-            <td th:text="${gender}"></td>
+        </thead>
+        <tbody>
+        <tr  th:each="personUrl : ${personUrlList}">
+            <td th:text="${personUrl.id}">neo</td>
+            <td th:text="${personUrl.url}">neo</td>
+            <td th:text="${personUrl.title}">Otto</td>
+            <td th:text="${personUrl.label}">6</td>
+            <td th:text="${personUrl.createTime}">6</td>
         </tr>
+        </tbody>
     </table>
 </div>
 <div>
-    <a href="http://www.baidu.com">核对无误请点击本链接激活邮箱</a>
+    <a href="http://www.baidu.com">核对无误请点击</a>
 </div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.wgq.web.test;
 
 import com.wgq.web.MailService;
+import com.wgq.web.PersonUrl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,11 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -55,8 +61,19 @@ public class SendmailApplicationTests {
     @Test
     public void sendHtmlMailThymeleaf() {
         Context ctx = new Context();
-        ctx.setVariable("username", "sang");
-        ctx.setVariable("gender", "男");
+
+        PersonUrl personUrl = new PersonUrl();
+        personUrl.setId(1);
+        personUrl.setUrl("www.baidu.com");
+        personUrl.setTitle("百度");
+        personUrl.setLabel("搜索");
+        personUrl.setCreateTime(Date.from(LocalDate.now().atStartOfDay(ZoneOffset.ofHours(8)).toInstant()));
+        List<PersonUrl> personUrlList = new ArrayList<>();
+        personUrlList.add(personUrl);
+        personUrlList.add(personUrl);
+
+        ctx.setVariable("personUrlList", personUrlList);
+
         String mail = templateEngine.process("mailtemplate.html", ctx);
         mailService.sendHtmlMail("13433956705@163.com",
                 "13433956705@163.com",
