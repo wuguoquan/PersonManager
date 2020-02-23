@@ -176,6 +176,14 @@ public class MainActivity extends AppCompatActivity {
                                                 "\",\"label\":\""
                                                 + msgLabel +
                                                 "\"}");
+
+                                // 上传成功后清空msg
+                                msg.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        msg.setText("");
+                                    }
+                                });
                             }
                         }).start();
                     }
